@@ -9,14 +9,17 @@ test_font = pygame.font.Font('font/Pixeltype.ttf', 50)
 clock = pygame.time.Clock()
 
 # create a surface
-sky_surface = pygame.image.load('graphics/Sky.png')
-ground_surface = pygame.image.load('graphics/ground.png')
+sky_surface = pygame.image.load('graphics/Sky.png').convert()
+ground_surface = pygame.image.load('graphics/ground.png').convert()
 # create text and surface for it
 text_surface = test_font.render('My game', False, 'Black')
-
 # create snail surface and movement
-snail_surface = pygame.image.load('graphics/snail/snail1.png')
+snail_surface = pygame.image.load('graphics/snail/snail1.png').convert_alpha()
 snail_x_pos = 600
+
+# player surface and rectangle
+player_surface = pygame.image.load('graphics/Player/player_walk_1.png').convert_alpha()
+player_rect = player_surface.get_rect(midbottom = (80,300))
 
 while True:
     # event(for) loop
@@ -24,13 +27,15 @@ while True:
         if event.type == pygame.QUIT:
             pygame.quit()
             exit()
+            
     screen.blit(sky_surface, (0, 0))
     screen.blit(ground_surface, (0, 300))
     screen.blit(text_surface, (300, 50))
     snail_x_pos -= 4
-    if(snail_x_pos <= -70):
+    if snail_x_pos <= -70:
         snail_x_pos = 850
     screen.blit(snail_surface, (snail_x_pos, 270))
+    screen.blit(player_surface, player_rect)
     # draw all out elements
     # update everything
     pygame.display.update()
