@@ -9,8 +9,8 @@ pygame.display.set_caption("Runner Game")
 clock = pygame.time.Clock()
 
 #create a surface
-test_surface = pygame.Surface((100,200))
-test_surface.fill('Red')
+sky_surface = pygame.image.load('graphics/Sky.png')
+ground_surface = pygame.image.load('graphics/ground.png')
 
 while True:
     # event(for) loop
@@ -18,7 +18,8 @@ while True:
         if event.type == pygame.QUIT:
             pygame.quit()
             exit()
-    screen.blit(test_surface, (200,100))
+    screen.blit(sky_surface, (0,0))
+    screen.blit(ground_surface, (0,270))
             
     # draw all out elements
     # update everything
