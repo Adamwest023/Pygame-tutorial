@@ -3,7 +3,10 @@ from sys import exit
 
 pygame.init()
 screen = pygame.display.set_mode((800, 400))
+pygame.display.set_caption("Runner Game")
 
+# clock object for framerate
+clock = pygame.time.Clock()
 while True:
     # event(for) loop
     for event in pygame.event.get():
@@ -13,4 +16,5 @@ while True:
     # draw all out elements
     # update everything
     pygame.display.update()
+    clock.tick(60)
     
