@@ -13,7 +13,7 @@ sky_surf = pygame.image.load('graphics/Sky.png').convert()
 ground_surf = pygame.image.load('graphics/ground.png').convert()
 
 # create text and surface for it
-score_surf = test_font.render('My game', False, 'Black')
+score_surf = test_font.render('My game', False, (64,64,64))
 score_rect = score_surf.get_rect(center= (400,50))
 # create snail surface and movement
 snail_surf = pygame.image.load('graphics/snail/snail1.png').convert_alpha()
@@ -36,6 +36,9 @@ while True:
     # draw all out elements       
     screen.blit(sky_surf, (0, 0))
     screen.blit(ground_surf, (0, 300))
+    pygame.draw.rect(screen,'#c0e8ec',score_rect)
+    pygame.draw.rect(screen,'#c0e8ec',score_rect,12)
+    pygame.draw.line(screen,(64,64,64),(340,65),(460,65),2)
     screen.blit(score_surf, score_rect)
     snail_rect.x -= 4
     if snail_rect.right <= -30:
