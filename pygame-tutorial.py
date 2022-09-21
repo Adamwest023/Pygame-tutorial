@@ -33,12 +33,12 @@ while True:
             pygame.quit()
             exit()
         if event.type == pygame.MOUSEBUTTONDOWN:
-            if player_rect.collidepoint(event.pos): 
+            if player_rect.collidepoint(event.pos) and player_rect.bottom >= 300:
                 player_gravity = -20
         if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_SPACE:
+            if event.key == pygame.K_SPACE and player_rect.bottom >= 300:
                 player_gravity = -20
-        
+ 
     # draw all out elements
     screen.blit(sky_surf, (0, 0))
     screen.blit(ground_surf, (0, 300))
@@ -54,20 +54,9 @@ while True:
     # Player
     player_gravity += 1
     player_rect.y += player_gravity
+    if player_rect.bottom >= 300:
+        player_rect.bottom = 300
     screen.blit(player_surf, player_rect)
-
-    # key inputs for controls
-    # keys = pygame.key.get_pressed()
-    # if keys[pygame.K_SPACE]:
-    #     print("jump")
-
-    # collision detection
-    # if player_rect.colliderect(snail_rect):
-    #    print("collision detected")
-    # mouse_pos = pygame.mouse.get_pos()
-    # if player_rect.collidepoint((mouse_pos)):
-    #     print(pygame.mouse.get_pressed())
-    # update everything
 
     pygame.display.update()
     clock.tick(60)
