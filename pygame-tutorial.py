@@ -1,3 +1,4 @@
+from operator import truediv
 import pygame
 from sys import exit
 
@@ -7,6 +8,9 @@ pygame.display.set_caption("Runner Game")
 test_font = pygame.font.Font('font/Pixeltype.ttf', 50)
 # clock object for framerate
 clock = pygame.time.Clock()
+
+game_active = True
+
 
 # create a surface
 sky_surf = pygame.image.load('graphics/Sky.png').convert()
@@ -38,25 +42,33 @@ while True:
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE and player_rect.bottom >= 300:
                 player_gravity = -20
- 
-    # draw all out elements
-    screen.blit(sky_surf, (0, 0))
-    screen.blit(ground_surf, (0, 300))
-    pygame.draw.rect(screen, '#c0e8ec', score_rect)
-    pygame.draw.rect(screen, '#c0e8ec', score_rect, 12)
-    pygame.draw.line(screen, (64, 64, 64), (340, 65), (460, 65), 2)
-    screen.blit(score_surf, score_rect)
-    snail_rect.x -= 4
-    if snail_rect.right <= -30:
-        snail_rect.left = 850
-    screen.blit(snail_surf, snail_rect)
 
-    # Player
-    player_gravity += 1
-    player_rect.y += player_gravity
-    if player_rect.bottom >= 300:
-        player_rect.bottom = 300
-    screen.blit(player_surf, player_rect)
+    if game_active:
+        # draw all out elements
+        screen.blit(sky_surf, (0, 0))
+        screen.blit(ground_surf, (0, 300))
+        pygame.draw.rect(screen, '#c0e8ec', score_rect)
+        pygame.draw.rect(screen, '#c0e8ec', score_rect, 12)
+        pygame.draw.line(screen, (64, 64, 64), (340, 65), (460, 65), 2)
+        screen.blit(score_surf, score_rect)
+        snail_rect.x -= 4
+        if snail_rect.right <= -30:
+            snail_rect.left = 850
+        screen.blit(snail_surf, snail_rect)
+
+        # Player
+        player_gravity += 1
+        player_rect.y += player_gravity
+        if player_rect.bottom >= 300:
+            player_rect.bottom = 300
+        screen.blit(player_surf, player_rect)
+
+        # collision
+        if snail_rect.colliderect(player_rect):
+            game_active = False
+    else:
+        screen.fill("Yellow")
 
     pygame.display.update()
     clock.tick(60)
+ 
