@@ -2,23 +2,24 @@ from operator import truediv
 import pygame
 from sys import exit
 
+
 def display_score():
-    current_time = pygame.time.get_ticks()
-    score_surf = test_font.render(f'{current_time}',False, (64,64,64))
-    score_rect = score_surf.get_rect(center = (400,50))
-    screen.blit(score_surf,score_rect)
-    
+    current_time = pygame.time.get_ticks()  - start_time
+    score_surf = test_font.render(f'{current_time}', False, (64, 64, 64))
+    score_rect = score_surf.get_rect(center=(400, 50))
+    screen.blit(score_surf, score_rect)
+
+
 pygame.init()
 screen = pygame.display.set_mode((800, 400))
 pygame.display.set_caption("Runner Game")
 test_font = pygame.font.Font('font/Pixeltype.ttf', 50)
 # clock object for framerate
 clock = pygame.time.Clock()
-
 game_active = True
+start_time = 0
 
 
-    
 # create a surface
 sky_surf = pygame.image.load('graphics/Sky.png').convert()
 ground_surf = pygame.image.load('graphics/ground.png').convert()
@@ -54,6 +55,7 @@ while True:
             if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
                 game_active = True
                 snail_rect.left = 800
+                start_time = pygame.time.get_ticks()
 
     if game_active:
         # draw all out elements
@@ -63,7 +65,7 @@ while True:
         # pygame.draw.rect(screen, '#c0e8ec', score_rect, 12)
         # screen.blit(score_surf, score_rect)
         # pygame.draw.line(screen, (64, 64, 64), (340, 65), (460, 65), 2)
-        display_score() 
+        display_score()
         snail_rect.x -= 4
         if snail_rect.right <= -30:
             snail_rect.left = 850
