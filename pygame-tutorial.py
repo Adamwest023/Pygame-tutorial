@@ -2,6 +2,12 @@ from operator import truediv
 import pygame
 from sys import exit
 
+def display_score():
+    current_time = pygame.time.get_ticks()
+    score_surf = test_font.render(f'{current_time}',False, (64,64,64))
+    score_rect = score_surf.get_rect(center = (400,50))
+    screen.blit(score_surf,score_rect)
+    
 pygame.init()
 screen = pygame.display.set_mode((800, 400))
 pygame.display.set_caption("Runner Game")
@@ -12,13 +18,14 @@ clock = pygame.time.Clock()
 game_active = True
 
 
+    
 # create a surface
 sky_surf = pygame.image.load('graphics/Sky.png').convert()
 ground_surf = pygame.image.load('graphics/ground.png').convert()
 
 # create text and surface for it
-score_surf = test_font.render('My game', False, (64, 64, 64))
-score_rect = score_surf.get_rect(center=(400, 50))
+# score_surf = test_font.render('My game', False, (64, 64, 64))
+# score_rect = score_surf.get_rect(center=(400, 50))
 # create snail surface and movement
 snail_surf = pygame.image.load('graphics/snail/snail1.png').convert_alpha()
 
@@ -52,10 +59,11 @@ while True:
         # draw all out elements
         screen.blit(sky_surf, (0, 0))
         screen.blit(ground_surf, (0, 300))
-        pygame.draw.rect(screen, '#c0e8ec', score_rect)
-        pygame.draw.rect(screen, '#c0e8ec', score_rect, 12)
-        pygame.draw.line(screen, (64, 64, 64), (340, 65), (460, 65), 2)
-        screen.blit(score_surf, score_rect)
+        # pygame.draw.rect(screen, '#c0e8ec', score_rect)
+        # pygame.draw.rect(screen, '#c0e8ec', score_rect, 12)
+        # screen.blit(score_surf, score_rect)
+        # pygame.draw.line(screen, (64, 64, 64), (340, 65), (460, 65), 2)
+        display_score() 
         snail_rect.x -= 4
         if snail_rect.right <= -30:
             snail_rect.left = 850
