@@ -11,6 +11,15 @@ def display_score():
     screen.blit(score_surf, score_rect)
 
 
+def intro_screen():
+    intro_surf = test_font.render('Pixel Game', False, (111, 196, 169))
+    intro_rect = intro_surf.get_rect(center=(400, 50))
+    screen.blit(intro_surf, intro_rect)
+    instruc_surf = test_font.render('Press SPACE to star', False, (111, 196, 169))
+    instruc_rect = instruc_surf.get_rect(center=(400, 350))
+    screen.blit(instruc_surf, instruc_rect)
+
+
 pygame.init()
 screen = pygame.display.set_mode((800, 400))
 pygame.display.set_caption("Runner Game")
@@ -34,12 +43,14 @@ snail_surf = pygame.image.load('graphics/snail/snail1.png').convert_alpha()
 snail_rect = snail_surf.get_rect(midbottom=(600, 300))
 
 # player surface and rectangle
-player_surf = pygame.image.load('graphics/Player/player_walk_1.png').convert_alpha()
+player_surf = pygame.image.load(
+    'graphics/Player/player_walk_1.png').convert_alpha()
 player_rect = player_surf.get_rect(midbottom=(80, 300))
 player_gravity = 0
 
 # intro screen
-player_stand = pygame.image.load('graphics/Player/player_stand.png').convert_alpha()
+player_stand = pygame.image.load(
+    'graphics/Player/player_stand.png').convert_alpha()
 player_stand = pygame.transform.rotozoom(player_stand, 0, 2)
 player_stand_rect = player_stand.get_rect(center=(400, 200))
 
@@ -90,6 +101,7 @@ while True:
     else:
         screen.fill((94, 129, 162))
         screen.blit(player_stand, player_stand_rect)
+        intro_screen()
 
     pygame.display.update()
     clock.tick(60)
