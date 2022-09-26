@@ -4,8 +4,9 @@ from sys import exit
 
 
 def display_score():
-    current_time = int(pygame.time.get_ticks() / 500)  - start_time
-    score_surf = test_font.render(f'Score: {current_time}', False, (64, 64, 64))
+    current_time = int(pygame.time.get_ticks() / 500) - start_time
+    score_surf = test_font.render(
+        f'Score: {current_time}', False, (64, 64, 64))
     score_rect = score_surf.get_rect(center=(400, 50))
     screen.blit(score_surf, score_rect)
 
@@ -33,12 +34,17 @@ snail_surf = pygame.image.load('graphics/snail/snail1.png').convert_alpha()
 snail_rect = snail_surf.get_rect(midbottom=(600, 300))
 
 # player surface and rectangle
-player_surf = pygame.image.load(
-    'graphics/Player/player_walk_1.png').convert_alpha()
+player_surf = pygame.image.load('graphics/Player/player_walk_1.png').convert_alpha()
 player_rect = player_surf.get_rect(midbottom=(80, 300))
 player_gravity = 0
 
-while True: 
+# intro screen
+player_stand = pygame.image.load('graphics/Player/player_stand.png').convert_alpha()
+player_stand = pygame.transform.rotozoom(player_stand, 0, 2)
+player_stand_rect = player_stand.get_rect(center=(400, 200))
+
+
+while True:
     # event(for) loop
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -82,7 +88,8 @@ while True:
         if snail_rect.colliderect(player_rect):
             game_active = False
     else:
-        screen.fill((94,129,162))
+        screen.fill((94, 129, 162))
+        screen.blit(player_stand, player_stand_rect)
 
     pygame.display.update()
     clock.tick(60)
