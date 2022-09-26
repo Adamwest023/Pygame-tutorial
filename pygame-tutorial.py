@@ -3,6 +3,11 @@ import pygame
 from sys import exit
 from random import randint
 
+class Player(pygame.sprite.Sprite):
+    def __init__(self):
+        super().__init__()
+        self.image = pygame.image.load('graphics/Player/player_walk_1.png').convert_alpha()
+        self.rect = self.image.get_rect(midbottom = (200,300))
 
 def display_score():
     current_time = int(pygame.time.get_ticks() / 500) - start_time
@@ -78,6 +83,8 @@ game_active = False
 start_time = 0
 score = 0
 
+player = pygame.sprite.GroupSingle()
+player.add(Player())
 
 # create a surface
 sky_surf = pygame.image.load('graphics/Sky.png').convert()
@@ -176,6 +183,7 @@ while True:
             player_rect.bottom = 300
         player_animation()
         screen.blit(player_surf, player_rect)
+        player.draw(screen)
 
         # obstacle movement
         obstacle_rect_list = obstacle_movement(obstacle_rect_list)
