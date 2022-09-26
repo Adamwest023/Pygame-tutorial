@@ -37,7 +37,13 @@ def obstacle_movement(obstacle_list):
         
         return obstacle_list
     else: return []
-    
+
+def collisions(player, obstacles):
+    if obstacles: 
+        for obstacle_rect in obstacles:
+            if player.colliderect(obstacle_rect): return False
+    return True
+                
 pygame.init()
 screen = pygame.display.set_mode((800, 400))
 pygame.display.set_caption("Runner Game")
@@ -117,10 +123,14 @@ while True:
         
 
         # collision
+        game_active = collisions(player_rect,obstacle_rect_list)
         
     else:
         screen.fill((94, 129, 162))
         screen.blit(player_stand, player_stand_rect)
+        obstacle_rect_list.clear()
+        player_rect.midbottom = (80,300)
+        player_gravity = 0
         intro_screen()
 
     pygame.display.update()
