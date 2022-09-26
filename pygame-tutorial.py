@@ -4,8 +4,8 @@ from sys import exit
 
 
 def display_score():
-    current_time = int(pygame.time.get_ticks() / 1000)  - start_time
-    score_surf = test_font.render(f'{current_time}', False, (64, 64, 64))
+    current_time = int(pygame.time.get_ticks() / 500)  - start_time
+    score_surf = test_font.render(f'Score: {current_time}', False, (64, 64, 64))
     score_rect = score_surf.get_rect(center=(400, 50))
     screen.blit(score_surf, score_rect)
 
@@ -38,7 +38,7 @@ player_surf = pygame.image.load(
 player_rect = player_surf.get_rect(midbottom=(80, 300))
 player_gravity = 0
 
-while True:
+while True: 
     # event(for) loop
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -55,7 +55,7 @@ while True:
             if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
                 game_active = True
                 snail_rect.left = 800
-                start_time = int(pygame.time.get_ticks()/1000)
+                start_time = int(pygame.time.get_ticks()/500)
 
     if game_active:
         # draw all out elements
@@ -82,7 +82,7 @@ while True:
         if snail_rect.colliderect(player_rect):
             game_active = False
     else:
-        screen.fill("Yellow")
+        screen.fill((94,129,162))
 
     pygame.display.update()
     clock.tick(60)
