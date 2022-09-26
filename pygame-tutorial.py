@@ -9,16 +9,21 @@ def display_score():
         f'Score: {current_time}', False, (64, 64, 64))
     score_rect = score_surf.get_rect(center=(400, 50))
     screen.blit(score_surf, score_rect)
+    return current_time
 
 
 def intro_screen():
-    intro_surf = test_font.render('Pixel Game', False, (111, 196, 169))
-    intro_rect = intro_surf.get_rect(center=(400, 50))
-    screen.blit(intro_surf, intro_rect)
-    instruc_surf = test_font.render('Press SPACE to star', False, (111, 196, 169))
-    instruc_rect = instruc_surf.get_rect(center=(400, 350))
-    screen.blit(instruc_surf, instruc_rect)
-
+    
+    game_name = test_font.render('Pixel Game', False, (111, 196, 169))
+    game_name_rect = game_name.get_rect(center=(400, 50))
+    game_message = test_font.render('Press SPACE to run', False, (111, 196, 169))
+    game_message_rect = game_message.get_rect(center=(400, 350))
+    score_message = test_font.render(f"Your score:   {score}", False, (111, 196, 169))
+    score_message_rect = score_message.get_rect(center=(400, 330))
+    
+    screen.blit(game_name, game_name_rect)
+    if score == 0: screen.blit(game_message, game_message_rect)
+    else: screen.blit(score_message, score_message_rect)
 
 pygame.init()
 screen = pygame.display.set_mode((800, 400))
@@ -26,8 +31,9 @@ pygame.display.set_caption("Runner Game")
 test_font = pygame.font.Font('font/Pixeltype.ttf', 50)
 # clock object for framerate
 clock = pygame.time.Clock()
-game_active = True
+game_active = False
 start_time = 0
+score = 0
 
 
 # create a surface
@@ -82,7 +88,7 @@ while True:
         # pygame.draw.rect(screen, '#c0e8ec', score_rect, 12)
         # screen.blit(score_surf, score_rect)
         # pygame.draw.line(screen, (64, 64, 64), (340, 65), (460, 65), 2)
-        display_score()
+        score = display_score()
         snail_rect.x -= 4
         if snail_rect.right <= -30:
             snail_rect.left = 850
