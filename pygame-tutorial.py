@@ -153,12 +153,6 @@ player_stand_rect = player_stand.get_rect(center=(400, 200))
 obstacle_timer = pygame.USEREVENT + 1
 pygame.time.set_timer(obstacle_timer, 1500)
 
-snail_animation_timer = pygame.USEREVENT + 2
-pygame.time.set_timer(snail_animation_timer,500)
-
-fly_animation_timer = pygame.USEREVENT + 3
-pygame.time.set_timer(fly_animation_timer,200)
-
 while True:
     # event(for) loop
     for event in pygame.event.get():
