@@ -1,3 +1,4 @@
+from asyncore import loop
 from operator import truediv
 import pygame
 from sys import exit
@@ -18,11 +19,14 @@ class Player(pygame.sprite.Sprite):
         self.image = self.player_walk[self.player_index]
         self.rect = self.image.get_rect(midbottom = (80,300))
         self.gravity = 0
+        self.jump_sound = pygame.mixer.Sound('audio/jump.mp3')
+        self.jump_sound.set_volume(0.25)
         
     def player_input(self):
         keys = pygame.key.get_pressed()
         if keys[pygame.K_SPACE] and self.rect.bottom >= 300:
             self.gravity = -20
+            self.jump_sound.play()
             
     def apply_gravity(self):
         self.gravity += 1
@@ -84,7 +88,6 @@ def display_score():
     screen.blit(score_surf, score_rect)
     return current_time
 
-
 def intro_screen():
     game_name = test_font.render('Pixel Game', False, (111, 196, 169))
     game_name_rect = game_name.get_rect(center=(400, 50))
@@ -113,8 +116,7 @@ def collision_sprite():
         obstacle_group.empty()  
         return False
     else: return True
-
-    
+  
 pygame.init()
 screen = pygame.display.set_mode((800, 400))
 pygame.display.set_caption("Runner Game")
@@ -124,13 +126,15 @@ clock = pygame.time.Clock()
 game_active = False
 start_time = 0
 score = 0
+bg_music = pygame.mixer.Sound('audio/music.wav')
+bg_music.set_volume(0.3)
+bg_music.play(loops = -1) 
 
 # Groups 
 player = pygame.sprite.GroupSingle()
 player.add(Player())
 
 obstacle_group = pygame.sprite.Group()
-
 
 # create a surface
 sky_surf = pygame.image.load('graphics/Sky.png').convert()
